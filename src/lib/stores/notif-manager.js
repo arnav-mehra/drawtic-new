@@ -5,9 +5,9 @@ class NotifManager {
     static show = writable(false);
     static interval = undefined;
 
-    static push(msg, status) {
+    static push(status, msg) {
         NotifManager.queue.update(q => {
-            q.push({ msg, status });
+            q.push({ status, msg });
             return q;
         });
 

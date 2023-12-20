@@ -2,8 +2,7 @@
     import { onMount } from 'svelte';
     import { ButtonGroup, Button, Input } from 'flowbite-svelte';
     import logo from '$lib/assets/logo.png';
-    import NotifManager from '../lib/stores/notif-manager';
-    import { get } from 'svelte/store';
+    import NotifManager from '$lib/stores/notif-manager';
 
     let welcome_opacity = 0;
     let start_opacity = 0;
@@ -63,7 +62,7 @@
         my cock
     </div> -->
 
-    <div id="start" style={`opacity: 1`}>
+    <div id="start" style={`opacity: ${start_opacity}`}>
         <div id="logo">
             <img id="logo-img" src={logo} alt="oh no"/>
         </div>
@@ -76,9 +75,7 @@
                     class="w-40"
                     placeholder="Enter Lobby Code"
                 />
-                <Button size="md" color="purple" on:click={() => {
-                    NotifManager.push("hi", 2);
-                }}>
+                <Button size="md" color="purple">
                     Join
                 </Button>
             </ButtonGroup>
