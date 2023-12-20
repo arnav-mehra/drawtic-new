@@ -5,7 +5,7 @@
     let tick = 0;
 
     const ICON_RATE = 6;
-    const MAX_VEL = 2.5;
+    const VEL_RANGE = [ 1.0, 2.5 ];
     const SIZE_INC = 0.1;
     const SIZE_INIT = 10;
     const OPACITY_INIT = 0.15;
@@ -18,17 +18,18 @@
     ]
 
     const addIcon = () => {
+        const v = Math.random() * (VEL_RANGE[1] - VEL_RANGE[0]) + VEL_RANGE[0] 
+        const angle = Math.random() * Math.PI * 2;
+        const dx = Math.cos(angle) * v;
+        const dy = Math.sin(angle) * v;
+        const dz = Math.random() > 0.5;
+        const svg_d = ICON_SVGS[Math.floor(Math.random() * ICON_SVGS.length)];
+
         const newIcon = {
-            id: tick,
-            d: Math.floor(Math.random() * ICON_SVGS.length),
-            sz: SIZE_INIT,
-            op: OPACITY_INIT,
-            x: window.innerWidth / 2,
-            y: window.innerHeight / 2,
-            dx: Math.random() * MAX_VEL * 2 - MAX_VEL,
-            dy: Math.random() * MAX_VEL * 2 - MAX_VEL,
-            dz: Math.random() > 0.5,
-            kill_tick: tick + LIVE_TICKS
+            id: tick, kill_tick: tick + LIVE_TICKS,
+            sz: SIZE_INIT, op: OPACITY_INIT,
+            x: window.innerWidth / 2, y: window.innerHeight / 2,
+            dx, dy, dz, svg_d
         };
         icons.push(newIcon);
         icons = icons;
@@ -61,7 +62,7 @@
 </script>
 
 <div style="pointer-events: none;">
-    {#each icons as {x, y, sz, op, d}}
+    {#each icons as {x, y, sz, op, svg_d}}
         <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -74,7 +75,7 @@
             <path
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                d={ICON_SVGS[d]}
+                d={svg_d}
             />
         </svg>
     {/each}
