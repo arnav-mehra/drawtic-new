@@ -6,11 +6,11 @@
 
     const ICON_RATE = 6;
     const VEL_RANGE = [ 1.0, 2.5 ];
-    const SIZE_INC = 0.1;
+    const SIZE_INC = 0.15;
     const SIZE_INIT = 10;
-    const OPACITY_INIT = 0.15;
-    const OPACITY_INC = 0.0003; 
-    const LIVE_TICKS = OPACITY_INIT / OPACITY_INC;
+    const OPACITY_INIT = 0.1;
+    const OPACITY_INC = 0.0005;
+    const LIVE_TICKS = (1 - OPACITY_INIT) / OPACITY_INC;
     const ICON_SVGS = [
         "M9.53 16.122a3 3 0 0 0-5.78 1.128 2.25 2.25 0 0 1-2.4 2.245 4.5 4.5 0 0 0 8.4-2.245c0-.399-.078-.78-.22-1.128Zm0 0a15.998 15.998 0 0 0 3.388-1.62m-5.043-.025a15.994 15.994 0 0 1 1.622-3.395m3.42 3.42a15.995 15.995 0 0 0 4.764-4.648l3.876-5.814a1.151 1.151 0 0 0-1.597-1.597L14.146 6.32a15.996 15.996 0 0 0-4.649 4.763m3.42 3.42a6.776 6.776 0 0 0-3.42-3.42",
         "M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z",
@@ -22,14 +22,13 @@
         const angle = Math.random() * Math.PI * 2;
         const dx = Math.cos(angle) * v;
         const dy = Math.sin(angle) * v;
-        const dz = Math.random() > 0.5;
         const svg_d = ICON_SVGS[Math.floor(Math.random() * ICON_SVGS.length)];
 
         const newIcon = {
             id: tick, kill_tick: tick + LIVE_TICKS,
             sz: SIZE_INIT, op: OPACITY_INIT,
             x: window.innerWidth / 2, y: window.innerHeight / 2,
-            dx, dy, dz, svg_d
+            dx, dy, svg_d
         };
         icons.push(newIcon);
         icons = icons;
@@ -40,7 +39,7 @@
             ip.x += ip.dx;
             ip.y += ip.dy;
             ip.sz += SIZE_INC;
-            ip.op += OPACITY_INC * (ip.dz ? 1 : -1);
+            ip.op += OPACITY_INC;
         });
         icons = icons.filter(ip => 
             ip.kill_tick > tick
