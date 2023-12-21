@@ -1,14 +1,15 @@
 import { goto } from '$app/navigation';
+import { writable } from 'svelte/store';
 import NotifManager from './notif-manager';
-import { createLobby, joinLobby, leaveLobby } from './reqs';
+import { createLobby } from './reqs';
 
 class GameManager {
     static ws = undefined;
-    static data = undefined;
+    static data = writable(undefined);
+    static timer = writable(100);
 
     static async init(lobbyId) {
         if (GameManager.ws) {
-            // alr connected err.
             NotifManager.push("error", "You are already in a game. How did you manage to do this?");
             return;
         }
@@ -16,7 +17,6 @@ class GameManager {
         if (!lobbyId) {
             lobbyId = await createLobby();
             if (!lobbyId) {
-                // unable to create lobby err.
                 NotifManager.push("error", "Unable to create a lobby. Try again later.");
                 return;
             }

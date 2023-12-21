@@ -58,10 +58,6 @@
         Welcome to...
     </div>
 
-    <!-- <div id="welcome" style={`opacity: ${start_opacity}`}>
-        my cock
-    </div> -->
-
     <div id="start" style={`opacity: ${start_opacity}`}>
         <div id="logo">
             <img id="logo-img" src={logo} alt="oh no"/>

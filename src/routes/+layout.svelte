@@ -4,6 +4,6 @@
     import Notifs from "$lib/components/notifs.svelte";
 </script>
 
-<slot/>
 <Background/>
 <Notifs/>
+<slot/>
