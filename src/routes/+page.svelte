@@ -1,6 +1,6 @@
 <script>
     import { onMount } from 'svelte';
-    import { ButtonGroup, Button, Input } from 'flowbite-svelte';
+    import { ButtonGroup, Button, Input, P } from 'flowbite-svelte';
     import logo from '$lib/assets/logo.png';
     import NotifManager from '$lib/stores/notif-manager';
 
@@ -10,7 +10,7 @@
     onMount(() => {
         const ts = [
             setTimeout(() => welcome_opacity = 1, 1000),
-            setTimeout(() => welcome_opacity = 0, 3000),
+            setTimeout(() => welcome_opacity = 0, 2500),
             setTimeout(() => start_opacity = 1, 5000),
         ];
 
@@ -34,7 +34,6 @@
     
     #welcome {
         position: absolute;
-        font-size: 18px;
         transition: opacity 2.0s;
     }
 
@@ -48,14 +47,16 @@
     }
 
     #logo {
-        max-width: 400px;
-        margin-bottom: 30px;
+        max-width: 500px;
+        margin-bottom: 20px;
     }
 </style>
 
 <div id="container">
     <div id="welcome" style={`opacity: ${welcome_opacity}`}>
-        Welcome to...
+        <P size="xl" color="white">
+            Welcome to...
+        </P>
     </div>
 
     <div id="start" style={`opacity: ${start_opacity}`}>
@@ -64,19 +65,19 @@
         </div>
 
         <div class="flex">
-            <ButtonGroup size="md" class="mr-1">
+            <ButtonGroup size="lg" class="mr-1">
                 <Input
                     id="input-addon-md"
                     type="text"
-                    class="w-40"
+                    class="w-44"
                     placeholder="Enter Lobby Code"
                 />
-                <Button size="md" color="purple">
+                <Button size="lg" color="purple">
                     Join
                 </Button>
             </ButtonGroup>
-            <ButtonGroup size="md">
-                <Button size="md" color="purple">
+            <ButtonGroup size="lg">
+                <Button size="lg" color="purple">
                     Create
                 </Button>
             </ButtonGroup>
