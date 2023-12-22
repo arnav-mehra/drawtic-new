@@ -47,6 +47,10 @@ class GameManager {
 
     // PUBLIC METHODS
 
+    static getLobbyList() {
+        return {};
+    }
+
     static getGuessingImage() {
         return "google.com";
     }
@@ -55,23 +59,24 @@ class GameManager {
         return "this is a crazy gud prompt.";
     }
 
-    static async getResults() {
+    static getResults() {
         return [];
     }
     
+    // async -> functions as a request.
     static async refreshSuggestions(refreshes) {
         return [];
     }
 
-    static async submitPrompt(prompt) {
+    static submitPrompt(prompt) {
         return;
     }
 
-    static async submitImage(url) {
+    static submitImage(url) {
         return;
     }
 
-    static async submitGuess(guess) {
+    static submitGuess(guess) {
         return;
     }
 }
