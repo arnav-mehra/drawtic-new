@@ -1,11 +1,10 @@
 <script>
-    const dots = new Array(10)
+    const dots = new Array(5)
         .fill(0)
         .map((_, i) => {
-            const r = Math.floor(Math.random() * 8) + 2; // 2-9
-            const t = i * 0.25 + 0.75;
-            const c = r * 100;
-            return { t, c };
+            const t = 4 / (i + 1);
+            const c = i * 100 + 400;
+            return { time: t, color: c };
         });
 </script>
 
@@ -20,15 +19,34 @@
         transform: translate(-50%, -50%);
     }
 
-    .dot-container {
+    @keyframes spinny {
+        0% { transform: rotate(0deg); }
+        50% { transform: rotate(180deg); }
+        100% { transform: rotate(360deg); }
+    }
+    @keyframes scaly {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.4); }
+        100% { transform: scale(1); }
+    }
+    
+    .dot-container-1 {
         width: 200px;
         height: 200px;
         position: absolute;
+        animation: scaly ease-in-out infinite;
+    }
+
+    .dot-container-2 {
+        width: 200px;
+        height: 200px;
+        position: absolute;
+        animation: spinny linear infinite;
     }
 
     .dot { 
-        width: 30px;
-        height: 30px;
+        width: 20px;
+        height: 20px;
         border-radius: 50%;
         position: absolute;
         top: 0;
@@ -36,25 +54,16 @@
         left: 0;
         right: 0;
         margin: auto;
-        transform: translateY(-40px);
-    }
-
-    @keyframes spin { 
-        from { 
-            transform: rotate(0deg); 
-        } to { 
-            transform: rotate(0deg); 
-        }
+        transform: translateX(30px);
     }
 </style>
 
 <div class="container">
     {#each dots as dot}
-        <div
-            class="dot-container"
-            style={`animation: spin ${dot.t}s linear infinite;`}
-        >
-            <div class={`dot bg-purple-${dot.c}`}/>
+        <div class="dot-container-1" style="animation-duration: {dot.time}s">
+            <div class="dot-container-2" style="animation-duration: {dot.time}s">
+                <div class="dot bg-purple-{dot.color}"/>
+            </div>
         </div>
     {/each}
 </div>
