@@ -4,7 +4,7 @@
 </script>
 
 <SpeedDial
-    defaultClass="absolute end-3 bottom-3"
+    defaultClass="static"
     pill={false}
     color="purple"
 >

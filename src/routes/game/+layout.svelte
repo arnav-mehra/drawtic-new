@@ -18,12 +18,12 @@
 <div class="fixed w-full h-full p-3 flex flex-col gap-3">
     <Timeline/>
 
-    <div class="w-full h-full flex flex-col justify-center items-center">
+    <div class="w-full h-full flex flex-col justify-center items-center gap-2">
         <slot/>
     </div>
 
-    <div class="flex w-full justify-between">
-        <Timer/>
+    <div class="flex w-full gap-2">
         <Settings/>
+        <Timer/>
     </div>
 </div>

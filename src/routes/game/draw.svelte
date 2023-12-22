@@ -1,18 +1,23 @@
 <script>
-    import { Button } from "flowbite-svelte";
-    import { CameraFotoOutline, PapperPlaneOutline, UndoOutline } from "flowbite-svelte-icons";
     import { onMount } from "svelte";
+    import { Button, P } from "flowbite-svelte";
+    import { CameraFotoOutline, PapperPlaneOutline, UndoOutline } from "flowbite-svelte-icons";
+    import GameManager from "../../lib/stores/game-manager";
+    
+    const SRC_MAX_HEIGHT = "100vh - 98px - 27px * 2 - 0.75rem * 5";
 
     let videoRef;
     let photoRef;
     let canvasRef;
     let tookPhoto = false;
+    let drawingPrompt = "";
 
     onMount(() => {
         navigator.mediaDevices
                  .getUserMedia({ video: true })
                  .then(handleStream)
                  .catch(handleError);
+        drawingPrompt = GameManager.getDrawingPrompt();
     });
 
     const handleStream = (stream) => {
@@ -39,52 +44,48 @@
     };
 
     const submitPhoto = () => {
-        console.log("submit not impl")
+        GameManager.submitPhoto(photoRef.src);
     };
 </script>
 
-<!-- svelte-ignore a11y-media-has-caption -->
-<!-- svelte-ignore a11y-img-redundant-alt -->
+<P color="white" size="lg">
+    Prompt: {drawingPrompt}
+</P>
 
-<div class="w-full mb-2 pointer-events-none ">
+<div class="pointer-events-none w-full flex flex-col items-center">
+    <!-- svelte-ignore a11y-media-has-caption -->
     <video
         bind:this={videoRef}
         hidden={tookPhoto}
         class="w-full"
+        style="max-height: calc({SRC_MAX_HEIGHT})"
     />
     <canvas
         bind:this={canvasRef}
         hidden
         class="w-full"
     />
+    <!-- svelte-ignore a11y-img-redundant-alt -->
     <img
         bind:this={photoRef}
         alt="Unable to load image."
-        class="w-full"
         hidden={!tookPhoto}
+        class="w-full"
+        style="max-height: calc({SRC_MAX_HEIGHT})"
     />
 </div>
 
-<div class="flex w-full">
+<div class="fixed bottom-3 right-3 flex gap-2">
     {#if tookPhoto}
-        <Button
-            on:click={undoPhoto}
-            class="w-full mr-2"
-        >
-            <UndoOutline/>
+        <Button on:click={undoPhoto} size="lg">
+            <UndoOutline class="w-8 h-8"/>
         </Button>
-        <Button
-            on:click={submitPhoto}
-            color="blue"
-        >
-            <PapperPlaneOutline class="rotate-45 mb-1 ml-1"/>
+        <Button on:click={submitPhoto} color="blue" size="lg">
+            <PapperPlaneOutline class="rotate-45 w-8 h-8 translate-x-[4px] translate-y-[-4px]"/>
         </Button>
     {:else}
-        <Button
-            on:click={takePhoto}
-            class="w-full"
-        >
-           <CameraFotoOutline/>
+        <Button on:click={takePhoto} size="lg">
+           <CameraFotoOutline class="w-8 h-8"/>
         </Button>
     {/if}
 </div>
