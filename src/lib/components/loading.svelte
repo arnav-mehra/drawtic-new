@@ -1,5 +1,5 @@
 <script>
-    const dots = new Array(7)
+    const dots = new Array(10)
         .fill(0)
         .map((_, i) => {
             const r = Math.floor(Math.random() * 8) + 2; // 2-9

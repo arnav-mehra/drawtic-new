@@ -12,7 +12,7 @@
         'results': Results,
     };
     const gameData = GameManager.data;
-    $: stage_component = STAGE_COMPONENTS[$gameData?.stage || 'draw']
+    $: stage_component = STAGE_COMPONENTS[$gameData?.stage || 'results']
 </script>
 
 <svelte:component
