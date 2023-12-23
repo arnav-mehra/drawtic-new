@@ -5,13 +5,15 @@
     import Timeline from "../../lib/components/timeline.svelte";
     import Settings from "../../lib/components/settings.svelte";
     import Timer from "../../lib/components/timer.svelte";
+    import NotifManager from "../../lib/stores/notif-manager";
 
     const gameData = GameManager.data;
 
     onMount(() => {
-        // if (!$gameData) {
-        //     goto('/');
-        // }
+        if (!$gameData) {
+            NotifManager.push("warning", "Not in an active game. Navigating to home.");
+            goto('/');
+        }
     })
 </script>
 

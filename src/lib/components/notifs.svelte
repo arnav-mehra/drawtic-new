@@ -20,7 +20,7 @@
 
 <div
     class="fixed w-full flex justify-center transition-transform duration-300"
-    style={`transform: translateY(${$show ? 5 : -80}px);`}
+    style="transform: translateY({$show ? 5 : -80}px);"
 >
     <Toast class="w-fit" color={status_color}>
         <svelte:component

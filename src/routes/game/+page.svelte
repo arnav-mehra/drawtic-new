@@ -11,8 +11,9 @@
         'guess': Guess,
         'results': Results,
     };
+
     const gameData = GameManager.data;
-    $: stage_component = STAGE_COMPONENTS[$gameData?.stage || 'results']
+    $: stage_component = STAGE_COMPONENTS[$gameData?.stage || 'prompt']
 </script>
 
 <svelte:component

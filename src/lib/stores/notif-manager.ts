@@ -1,12 +1,12 @@
-import { get, writable } from "svelte/store";
+import { get, writable, type Writable } from "svelte/store";
 
 class NotifManager {
-    static queue = writable([]);
-    static show = writable(false);
-    static interval = undefined;
+    static queue: Writable<Array<Object>> = writable([]);
+    static show: Writable<boolean> = writable(false);
+    static interval: number = undefined;
 
-    static push(status, msg) {
-        NotifManager.queue.update(q => {
+    static push(status: string, msg: string) {
+        NotifManager.queue.update((q: Array<Object>) => {
             q.push({ status, msg });
             return q;
         });
@@ -19,12 +19,13 @@ class NotifManager {
 
     static async pop() {
         clearTimeout(NotifManager.interval);
+
         if (get(NotifManager.queue).length == 0) return;
 
         NotifManager.show.set(false);
         await new Promise((res, _) => setTimeout(res, 500));
 
-        NotifManager.queue.update(q => {
+        NotifManager.queue.update((q: Array<Object>) => {
             q.shift();
             NotifManager.show.set(q.length != 0);
             NotifManager.interval = (

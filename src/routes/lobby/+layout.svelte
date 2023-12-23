@@ -7,10 +7,11 @@
     const gameData = GameManager.data;
 
     onMount(() => {
-        // if (!$gameData) {
-        //     goto('/');
-        // }
-    })
+        if (!$gameData) {
+            NotifManager.push("warning", "Not in an active game. Navigating to home.");
+            goto('/');
+        }
+    });
 </script>
 
 <div class="fixed w-full h-full p-3 flex flex-col gap-3">
